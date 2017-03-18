@@ -241,6 +241,7 @@
 		878F79781E7CAA0500FA2EB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				HEADER_SEARCH_PATHS = /Users/nlogn/Documents/dkf/dkf/eigen;
 				OTHER_CFLAGS = "-DDKF_LOG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -250,6 +251,7 @@
 		878F79791E7CAA0500FA2EB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				HEADER_SEARCH_PATHS = /Users/nlogn/Documents/dkf/dkf/eigen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -274,6 +276,7 @@
 				878F79791E7CAA0500FA2EB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

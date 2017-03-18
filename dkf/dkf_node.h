@@ -19,6 +19,7 @@ namespace dkf
         std::vector<int> Rx;
         int size_R = 0;
         bool ready_to_ekf_p1 = false;
+        bool ekf_p1_done = false;
         
         Node(int id, std::string name);
         
@@ -30,6 +31,10 @@ namespace dkf
         }
         
         void set_meas(dkf::Meas meas, double h_dt_ref);
+        
+        void checkekf_p1();
+        void efk_part1();
+        void dif_ekf_p1();
     };
 }
 

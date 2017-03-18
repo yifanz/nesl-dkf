@@ -31,6 +31,21 @@ namespace dkf
         DLOG("Network Constructed");
     }
     
+    void Network::next_meas(dkf::Meas meas)
+    {
+        if (first_meas) {
+            first_meas = false;
+            meas_last = meas;
+        } else {
+            double dt_ref = meas.getTime() - meas_last.getTime();
+            meas_last = meas;
+            
+            publishmeas_forneigh(meas, dt_ref);
+            checkekf_p1_forall();
+        }
+        
+    }
+    
     void Network::publishmeas_forneigh(dkf::Meas meas,
                                        double h_dt_ref)
     {
@@ -40,6 +55,13 @@ namespace dkf
         // Assume everyone is a neighbor to every
         for (int i : neighbors[srcIndex]) {
             nodes[i].set_meas(meas, h_dt_ref);
+        }
+    }
+    
+    void Network::checkekf_p1_forall()
+    {
+        for (int i = 0; i < nodes.size(); i++) {
+            nodes[i].checkekf_p1();
         }
     }
     

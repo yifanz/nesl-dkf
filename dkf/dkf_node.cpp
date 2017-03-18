@@ -21,4 +21,21 @@ namespace dkf
         }
     }
     
+    void Node::checkekf_p1()
+    {
+        if (ready_to_ekf_p1 && !ekf_p1_done) {
+            efk_part1();
+        }
+    }
+    
+    void Node::efk_part1()
+    {
+        // [obj.eita,obj.P]=dif_ekf_p1(obj.x,obj.P,obj.hl,obj.Rl,obj.yl);
+        dif_ekf_p1();
+    }
+    
+    void Node::dif_ekf_p1()
+    {
+        
+    }
 }

@@ -12,44 +12,46 @@ extern "C" void dkf_init()
 }
 
 extern "C" void dkf_iterate(
-        double walltime,
-        int nodei,
-        int nodej,
-        uint64_t seq,
-        uint64_t t0,
-        uint64_t t1,
-        uint64_t t2,
-        uint64_t t3,
-        uint64_t t4,
-        uint64_t t5
-        )
+                            double walltime,
+                            int nodei,
+                            int nodej,
+                            uint64_t seq,
+                            uint64_t t0,
+                            uint64_t t1,
+                            uint64_t t2,
+                            uint64_t t3,
+                            uint64_t t4,
+                            uint64_t t5
+                            )
 {
     dkf::Meas meas(
-            walltime,
-            nodei,
-            nodej,
-            seq,
-            t0,
-            t1,
-            t2,
-            t3,
-            t4,
-            t5
-            );
-
-    // TODO implement DKF.
-    // Right we just print out the input measurement.
-    DLOG(
-            LOG_PREC(6),
-            meas.walltime,", ",
-            meas.nodei,", ",
-            meas.nodej,", ",
-            meas.seq,", ",
-            meas.t0,", ",
-            meas.t1,", ",
-            meas.t2,", ",
-            meas.t3,", ",
-            meas.t4,", ",
-            meas.t5
-        );
+                   walltime,
+                   nodei,
+                   nodej,
+                   seq,
+                   t0,
+                   t1,
+                   t2,
+                   t3,
+                   t4,
+                   t5
+                   );
+    
+    /* Just print out the measurement
+     DLOG(
+     LOG_PREC(6),
+     meas.walltime,", ",
+     meas.nodei,", ",
+     meas.nodej,", ",
+     meas.seq,", ",
+     meas.t0,", ",
+     meas.t1,", ",
+     meas.t2,", ",
+     meas.t3,", ",
+     meas.t4,", ",
+     meas.t5
+     );
+     */
+    
+    network.next_meas(meas);
 }

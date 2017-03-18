@@ -13,7 +13,12 @@ namespace dkf
         std::vector<Node> nodes;
         std::vector<std::vector<int>> neighbors;
         
+        bool first_meas = true;
+        dkf::Meas meas_last;
+        
         Network();
+        
+        void next_meas(dkf::Meas meas);
         
         void setneigh_forall() {
             for (int i = 0; i < nodes.size(); i++) {
@@ -22,6 +27,7 @@ namespace dkf
         }
         
         void publishmeas_forneigh(dkf::Meas meas, double h_dt_ref);
+        void checkekf_p1_forall();
     };
 }
 

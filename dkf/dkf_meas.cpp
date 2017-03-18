@@ -2,6 +2,31 @@
 
 namespace dkf
 {
+    Meas::Meas():
+    walltime(0),
+    nodei(0),
+    nodej(0),
+    seq(0),
+    t0(0),
+    t1(0),
+    t2(0),
+    t3(0),
+    t4(0),
+    t5(0),
+    d_ij(0),
+    r_ij(0),
+    R_ij(0),
+    T_rsp0(0),
+    T_rsp1(0),
+    T_rnd0(0),
+    T_rnd1(0),
+    t_bcn_tx(0),
+    t_bcn_rx(0),
+    t_i(0),
+    t_j(0)
+    {
+    }
+    
     Meas::Meas(
                double walltime,
                int nodei,
@@ -23,7 +48,18 @@ namespace dkf
     t2(t2),
     t3(t3),
     t4(t4),
-    t5(t5)
+    t5(t5),
+    d_ij(0),
+    r_ij(0),
+    R_ij(0),
+    T_rsp0(0),
+    T_rsp1(0),
+    T_rnd0(0),
+    T_rnd1(0),
+    t_bcn_tx(0),
+    t_bcn_rx(0),
+    t_i(0),
+    t_j(0)
     {
         t_bcn_tx = t0;
         t_bcn_rx = t1;
@@ -39,6 +75,32 @@ namespace dkf
         
         r_ij = (LIGHTSPEED/2)*(T_rnd1 - T_rsp1);
         R_ij = (LIGHTSPEED)*(T_rnd0*T_rnd1 - T_rsp0*T_rsp1)/(T_rnd0 + T_rnd1 + T_rsp0 + T_rsp1);
+    }
+
+    Meas& Meas::operator=(const Meas& other)
+    {
+        this->walltime = other.walltime;
+        this->nodei = other.nodei;
+        this->nodej = other.nodej;
+        this->seq = other.seq;
+        this->t0 = other.t0;
+        this->t1 = other.t1;
+        this->t2 = other.t2;
+        this->t3 = other.t3;
+        this->t4 = other.t4;
+        this->t5 = other.t5;
+        this->d_ij = other.d_ij;
+        this->r_ij = other.r_ij;
+        this->R_ij = other.R_ij;
+        this->T_rsp0 = other.T_rsp0;
+        this->T_rsp1 = other.T_rsp1;
+        this->T_rnd0 = other.T_rnd0;
+        this->T_rnd1 = other.T_rnd1;
+        this->t_bcn_tx = other.t_bcn_tx;
+        this->t_bcn_rx = other.t_bcn_rx;
+        this->t_i = other.t_i;
+        this->t_j = other.t_j;
+        return *this;
     }
     
     Eigen::Vector3d Meas::vectorize()

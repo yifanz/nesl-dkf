@@ -35,10 +35,6 @@ namespace dkf
         uint64_t  T_rsp1 = 0;
         uint64_t  T_rnd0 = 0;
         uint64_t  T_rnd1 = 0;
-        // rx quality
-        double fppwr = 0;
-        double cirp = 0;
-        double fploss = 0;
         // beaconing raw times
         uint64_t t_bcn_tx = 0;
         uint64_t t_bcn_rx = 0;
@@ -48,14 +44,16 @@ namespace dkf
         uint64_t seq = 0;
         // is this a queued message?
         int queued = 0;
-        uint64_t t0;
-        uint64_t t1;
-        uint64_t t2;
-        uint64_t t3;
-        uint64_t t4;
-        uint64_t t5;
+        uint64_t t0 = 0;
+        uint64_t t1 = 0;
+        uint64_t t2 = 0;
+        uint64_t t3 = 0;
+        uint64_t t4 = 0;
+        uint64_t t5 = 0;
+
+        Meas();
         
-        Meas(
+        explicit Meas(
              double walltime,
              int nodei,
              int nodej,
@@ -68,6 +66,8 @@ namespace dkf
              uint64_t t5
              );
         
+        Meas& operator=(const Meas& other);
+        
         Eigen::Vector3d vectorize();
         Eigen::Matrix3d getCovariance();
         
@@ -79,6 +79,11 @@ namespace dkf
         int getDestId()
         {
             return nodej;
+        }
+        
+        double getTime()
+        {
+            return walltime;
         }
         
     };
