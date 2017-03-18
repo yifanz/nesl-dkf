@@ -8,23 +8,40 @@
 
 /* Begin PBXBuildFile section */
 		878F79741E7CAA0500FA2EB0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878F79731E7CAA0500FA2EB0 /* main.cpp */; };
+		878F79841E7CAB5C00FA2EB0 /* dkf_meas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878F79801E7CAB5C00FA2EB0 /* dkf_meas.cpp */; };
+		878F79851E7CAB5C00FA2EB0 /* dkf_network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878F79811E7CAB5C00FA2EB0 /* dkf_network.cpp */; };
+		878F79861E7CAB5C00FA2EB0 /* dkf_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878F79821E7CAB5C00FA2EB0 /* dkf_node.cpp */; };
+		878F79871E7CAB5C00FA2EB0 /* dkf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878F79831E7CAB5C00FA2EB0 /* dkf.cpp */; };
+		878F798A1E7CADC900FA2EB0 /* ntbtiming.csv in CopyFiles */ = {isa = PBXBuildFile; fileRef = 878F79881E7CAC1100FA2EB0 /* ntbtiming.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		878F796E1E7CAA0500FA2EB0 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				878F798A1E7CADC900FA2EB0 /* ntbtiming.csv in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		878F79701E7CAA0500FA2EB0 /* dkf */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dkf; sourceTree = BUILT_PRODUCTS_DIR; };
 		878F79731E7CAA0500FA2EB0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		878F797B1E7CAB3F00FA2EB0 /* dkf_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dkf_log.h; sourceTree = "<group>"; };
+		878F797C1E7CAB3F00FA2EB0 /* dkf_meas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dkf_meas.h; sourceTree = "<group>"; };
+		878F797D1E7CAB3F00FA2EB0 /* dkf_network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dkf_network.h; sourceTree = "<group>"; };
+		878F797E1E7CAB3F00FA2EB0 /* dkf_node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dkf_node.h; sourceTree = "<group>"; };
+		878F797F1E7CAB3F00FA2EB0 /* dkf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dkf.h; sourceTree = "<group>"; };
+		878F79801E7CAB5C00FA2EB0 /* dkf_meas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dkf_meas.cpp; sourceTree = "<group>"; };
+		878F79811E7CAB5C00FA2EB0 /* dkf_network.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dkf_network.cpp; sourceTree = "<group>"; };
+		878F79821E7CAB5C00FA2EB0 /* dkf_node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dkf_node.cpp; sourceTree = "<group>"; };
+		878F79831E7CAB5C00FA2EB0 /* dkf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dkf.cpp; sourceTree = "<group>"; };
+		878F79881E7CAC1100FA2EB0 /* ntbtiming.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = ntbtiming.csv; sourceTree = "<group>"; };
+		878F79891E7CAC9A00FA2EB0 /* eigen */ = {isa = PBXFileReference; lastKnownFileType = folder; path = eigen; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +74,17 @@
 		878F79721E7CAA0500FA2EB0 /* dkf */ = {
 			isa = PBXGroup;
 			children = (
+				878F79891E7CAC9A00FA2EB0 /* eigen */,
+				878F79881E7CAC1100FA2EB0 /* ntbtiming.csv */,
+				878F79801E7CAB5C00FA2EB0 /* dkf_meas.cpp */,
+				878F79811E7CAB5C00FA2EB0 /* dkf_network.cpp */,
+				878F79821E7CAB5C00FA2EB0 /* dkf_node.cpp */,
+				878F79831E7CAB5C00FA2EB0 /* dkf.cpp */,
+				878F797B1E7CAB3F00FA2EB0 /* dkf_log.h */,
+				878F797C1E7CAB3F00FA2EB0 /* dkf_meas.h */,
+				878F797D1E7CAB3F00FA2EB0 /* dkf_network.h */,
+				878F797E1E7CAB3F00FA2EB0 /* dkf_node.h */,
+				878F797F1E7CAB3F00FA2EB0 /* dkf.h */,
 				878F79731E7CAA0500FA2EB0 /* main.cpp */,
 			);
 			path = dkf;
@@ -119,6 +147,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				878F79741E7CAA0500FA2EB0 /* main.cpp in Sources */,
+				878F79841E7CAB5C00FA2EB0 /* dkf_meas.cpp in Sources */,
+				878F79851E7CAB5C00FA2EB0 /* dkf_network.cpp in Sources */,
+				878F79861E7CAB5C00FA2EB0 /* dkf_node.cpp in Sources */,
+				878F79871E7CAB5C00FA2EB0 /* dkf.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +241,8 @@
 		878F79781E7CAA0500FA2EB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = /Users/nlogn/Documents/dkf/dkf/eigen;
+				OTHER_CFLAGS = "-DDKF_LOG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -216,6 +250,7 @@
 		878F79791E7CAA0500FA2EB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = /Users/nlogn/Documents/dkf/dkf/eigen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
