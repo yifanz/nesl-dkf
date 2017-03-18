@@ -9,16 +9,16 @@ namespace dkf
     class Meas
     {
     public:
-        const double LIGHTSPEED = 299792458; // m/s
+        static const double LIGHTSPEED; // m/s
         // range var is about 0.05 m, so due to timing that's about 1.67e-10
         
-        const double var_dij = 1e-12; // around -20 to converge on type 1 only
-        const double var_rij = 1.00;
-        const double var_Rij = 0.30;
+        static const double var_dij; // around -20 to converge on type 1 only
+        static const double var_rij;
+        static const double var_Rij;
         // cross terms
-        const double var_dxr = 0;
-        const double var_dxR = 0;
-        const double var_rxR = 0;
+        static const double var_dxr;
+        static const double var_dxR;
+        static const double var_rxR;
         
         // measurement wall time
         double walltime = 0;
@@ -51,9 +51,9 @@ namespace dkf
         uint64_t t4 = 0;
         uint64_t t5 = 0;
 
-        Meas();
-        
-        explicit Meas(
+        Meas() = default;
+
+        Meas(
              double walltime,
              int nodei,
              int nodej,
@@ -65,8 +65,6 @@ namespace dkf
              uint64_t t4,
              uint64_t t5
              );
-        
-        Meas& operator=(const Meas& other);
         
         Eigen::Vector3d vectorize();
         Eigen::Matrix3d getCovariance();
