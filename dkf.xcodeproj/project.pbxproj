@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		872033491E7E16290050F8EF /* dkf_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 872033471E7E16290050F8EF /* dkf_helpers.cpp */; };
 		878F79741E7CAA0500FA2EB0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878F79731E7CAA0500FA2EB0 /* main.cpp */; };
 		878F79841E7CAB5C00FA2EB0 /* dkf_meas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878F79801E7CAB5C00FA2EB0 /* dkf_meas.cpp */; };
 		878F79851E7CAB5C00FA2EB0 /* dkf_network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878F79811E7CAB5C00FA2EB0 /* dkf_network.cpp */; };
@@ -29,6 +30,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		872033471E7E16290050F8EF /* dkf_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dkf_helpers.cpp; sourceTree = "<group>"; };
+		872033481E7E16290050F8EF /* dkf_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dkf_helpers.hpp; sourceTree = "<group>"; };
 		878F79701E7CAA0500FA2EB0 /* dkf */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dkf; sourceTree = BUILT_PRODUCTS_DIR; };
 		878F79731E7CAA0500FA2EB0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		878F797B1E7CAB3F00FA2EB0 /* dkf_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dkf_log.h; sourceTree = "<group>"; };
@@ -86,6 +89,8 @@
 				878F797E1E7CAB3F00FA2EB0 /* dkf_node.h */,
 				878F797F1E7CAB3F00FA2EB0 /* dkf.h */,
 				878F79731E7CAA0500FA2EB0 /* main.cpp */,
+				872033471E7E16290050F8EF /* dkf_helpers.cpp */,
+				872033481E7E16290050F8EF /* dkf_helpers.hpp */,
 			);
 			path = dkf;
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 				878F79741E7CAA0500FA2EB0 /* main.cpp in Sources */,
 				878F79841E7CAB5C00FA2EB0 /* dkf_meas.cpp in Sources */,
 				878F79851E7CAB5C00FA2EB0 /* dkf_network.cpp in Sources */,
+				872033491E7E16290050F8EF /* dkf_helpers.cpp in Sources */,
 				878F79861E7CAB5C00FA2EB0 /* dkf_node.cpp in Sources */,
 				878F79871E7CAB5C00FA2EB0 /* dkf.cpp in Sources */,
 			);

@@ -31,25 +31,25 @@ namespace dkf
         double r_ij = 0;
         double R_ij = 0;
         // processed times
-        uint64_t T_rsp0 = 0;
-        uint64_t  T_rsp1 = 0;
-        uint64_t  T_rnd0 = 0;
-        uint64_t  T_rnd1 = 0;
+        double T_rsp0 = 0;
+        double  T_rsp1 = 0;
+        double  T_rnd0 = 0;
+        double  T_rnd1 = 0;
         // beaconing raw times
-        uint64_t t_bcn_tx = 0;
-        uint64_t t_bcn_rx = 0;
-        uint64_t t_i = 0;
-        uint64_t t_j = 0;
+        double t_bcn_tx = 0;
+        double t_bcn_rx = 0;
+        double t_i = 0;
+        double t_j = 0;
         // sequence number
         uint64_t seq = 0;
         // is this a queued message?
         int queued = 0;
-        uint64_t t0 = 0;
-        uint64_t t1 = 0;
-        uint64_t t2 = 0;
-        uint64_t t3 = 0;
-        uint64_t t4 = 0;
-        uint64_t t5 = 0;
+        double t0 = 0;
+        double t1 = 0;
+        double t2 = 0;
+        double t3 = 0;
+        double t4 = 0;
+        double t5 = 0;
 
         Meas() = default;
 

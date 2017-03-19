@@ -1,5 +1,8 @@
 #include "dkf_meas.h"
 
+// TODO Copied directly from the Matlab code. What units are the raw timestamps in?
+#define TO_SECONDS(t) (t / 63.8976 / 1e9)
+
 namespace dkf
 {
     const double Meas::LIGHTSPEED = 299792458;
@@ -26,12 +29,12 @@ namespace dkf
     nodei(nodei),
     nodej(nodej),
     seq(seq),
-    t0(t0),
-    t1(t1),
-    t2(t2),
-    t3(t3),
-    t4(t4),
-    t5(t5),
+    t0(TO_SECONDS(t0)),
+    t1(TO_SECONDS(t1)),
+    t2(TO_SECONDS(t2)),
+    t3(TO_SECONDS(t3)),
+    t4(TO_SECONDS(t4)),
+    t5(TO_SECONDS(t5)),
     d_ij(0),
     r_ij(0),
     R_ij(0),
@@ -44,17 +47,17 @@ namespace dkf
     t_i(0),
     t_j(0)
     {
-        t_bcn_tx = t0;
-        t_bcn_rx = t1;
-        t_j = t5;
-        t_i = t4;
+        t_bcn_tx = this->t0;
+        t_bcn_rx = this->t1;
+        t_j = this->t5;
+        t_i = this->t4;
         
         // calculate processed measurements
-        d_ij = t5 - t4;
-        T_rnd0 = t3-t0;
-        T_rnd1 = t5-t2;
-        T_rsp0 = t2-t1;
-        T_rsp1 = t4-t3;
+        d_ij = this->t5 - this->t4;
+        T_rnd0 = this->t3 - this->t0;
+        T_rnd1 = this->t5 - this->t2;
+        T_rsp0 = this->t2 - this->t1;
+        T_rsp1 = this->t4 - this->t3;
         
         r_ij = (LIGHTSPEED/2)*(T_rnd1 - T_rsp1);
         R_ij = (LIGHTSPEED)*(T_rnd0*T_rnd1 - T_rsp0*T_rsp1)/(T_rnd0 + T_rnd1 + T_rsp0 + T_rsp1);
