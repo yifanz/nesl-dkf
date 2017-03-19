@@ -8,12 +8,12 @@ static dkf::Network network;
 extern "C" void dkf_init()
 {
     DLOG("dkf init");
+    network.nodes[0].setAsReference();
     Eigen::MatrixXd P = network.getInitialVar();
     Eigen::VectorXd x;
     x.resize(network.nodes.size()*5);
     x.setZero(network.nodes.size()*5);
     network.init_x_P_forall(x, P);
-    network.nodes[0].setAsReference();
     network.setneigh_forall();
 }
 

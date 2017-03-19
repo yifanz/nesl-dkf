@@ -129,7 +129,7 @@ namespace dkf
         std::complex<double> err = LIGHTSPEED*( 1e-9*(bi-bj)*(meas.T_rnd0*meas.T_rnd1 - meas.T_rsp0*(double)meas.T_rsp1 ))/( (1.+ 1e-9*(bi-bj))*(double)meas.T_rnd0 + (double)meas.T_rnd1 + (double)meas.T_rsp0 + (1. + 1e-9*(bi-bj))*(double)meas.T_rsp1 );
         y(2) = p_ij + err;
         
-        DLOG(y);
+        //DLOG(y);
 
         return y;
     }

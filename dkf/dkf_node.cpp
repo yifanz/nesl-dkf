@@ -83,11 +83,18 @@ namespace dkf
         for (int k = 0; k < Rl.size(); k++) {
             jaccsd(hl[k], x, h, H_cap);
             sum = sum + H_cap.conjugate().transpose()*(Rl[k].inverse())*H_cap;
-            DLOG(sum(0,0), " ", sum(0,1), " ", sum(0,2), " ", sum(0,3), " ", sum(0,4));
+//            DLOG(sum(0,0), " ", sum(0,1), " ", sum(0,2), " ", sum(0,3), " ", sum(0,4));
+//            DLOG(sum(1,0), " ", sum(1,1), " ", sum(1,2), " ", sum(1,3), " ", sum(1,4));
+//            DLOG(sum(3,0), " ", sum(3,1), " ", sum(3,2), " ", sum(3,3), " ", sum(3,4));
         }
+//        DLOG(sum(0,0), " ", sum(0,1), " ", sum(0,2), " ", sum(0,3), " ", sum(0,4));
+//        DLOG(sum(1,0), " ", sum(1,1), " ", sum(1,2), " ", sum(1,3), " ", sum(1,4));
+//        DLOG(sum(3,0), " ", sum(3,1), " ", sum(3,2), " ", sum(3,3), " ", sum(3,4));
         sum = sum + P.inverse();
         P_next = sum.inverse();
-        
+//        DLOG(P_next(0,0), " ", P_next(0,1), " ", P_next(0,2), " ", P_next(0,3), " ", P_next(0,4));
+//        DLOG(P_next(1,0), " ", P_next(1,1), " ", P_next(1,2), " ", P_next(1,3), " ", P_next(1,4));
+//        DLOG(P_next(3,0), " ", P_next(3,1), " ", P_next(3,2), " ", P_next(3,3), " ", P_next(3,4));
         /*
          sum=0;
          for i=1:length( Rl)
@@ -96,12 +103,17 @@ namespace dkf
          end
          eita = P_next*sum + x;
          */
-        sum.resize(x.rows(), x.rows());
-        sum.setZero(x.rows(), x.rows());
+        sum.resize(x.rows(), 1);
+        sum.setZero(x.rows(), 1);
+        eita.resize(x.rows(), 1);
+        eita.setZero(x.rows(), 1);
         for (int k = 0; k < Rl.size(); k++) {
             jaccsd(hl[k], x, h, H_cap);
             sum = sum + H_cap.conjugate().transpose()*(Rl[k].inverse())*(yl[k]-h);
         }
+        eita = P_next * sum + x;
+//        DLOG(eita(0), " ", eita(1), " ", eita(2), " ", eita(3), " ", eita(4), " ", eita(5));
+//        DLOG(eita);
     }
     
     void Node::jaccsd(const std::function<Eigen::Vector3cd(Eigen::VectorXcd)> &fun,
@@ -137,14 +149,14 @@ namespace dkf
         for (int k = 0; k < n; k++) {
             Eigen::VectorXcd x1(n);
             x1.setZero(n);
-            std::complex<double> xi(x(k),h);
+            x1 = x;
+            std::complex<double> xi(x1(k).real(),h);
             x1(k) = xi;
             Eigen::Vector3cd fun_x = fun(x1);
             A(0,k) = fun_x(0).imag() / h;
             A(1,k) = fun_x(1).imag() / h;
             A(2,k) = fun_x(2).imag() / h;
-            DLOG(A(0,k), " " , A(1,k), " ", A(2,k));
-            
+            //DLOG(A(0,k), " " , A(1,k), " ", A(2,k));
         }
     }
 }

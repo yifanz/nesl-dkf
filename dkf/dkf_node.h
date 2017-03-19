@@ -25,6 +25,7 @@ namespace dkf
         Eigen::Vector3d vari_p;
         double vari_co;
         double vari_cb;
+        Eigen::VectorXd eita;
         
         Node(int id, std::string name);
         
