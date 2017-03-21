@@ -36,6 +36,14 @@ namespace dkf
         return q;
     }
     
+    Eigen::Matrix<double, 5, 1> Node::getProcessVar()
+    {
+        Eigen::Matrix<double, 5, 1> q;
+        q << var_p(0), var_p(1), var_p(2), var_co, var_cb;
+        
+        return q;
+    }
+    
     void Node::set_meas(dkf::Meas meas, std::function<Eigen::Vector3cd(Eigen::VectorXcd)> h)
     {
         yl.push_back(meas.vectorize());
@@ -158,5 +166,126 @@ namespace dkf
             A(2,k) = fun_x(2).imag() / h;
             //DLOG(A(0,k), " " , A(1,k), " ", A(2,k));
         }
+    }
+    
+    void Node::seteital(Eigen::VectorXd eita)
+    {
+        eital.push_back(eita);
+        if (eital.size() == Rx.size()) {
+            ready_to_ekf_p2 = true;
+        }
+    }
+    
+    void Node::checkekf_p2(std::function<Eigen::VectorXcd(Eigen::VectorXcd)> fstate,
+                           Eigen::MatrixXd Q)
+    {
+        if (ready_to_ekf_p2) {
+            ekf_part2(fstate,Q);
+        }
+    }
+    
+    void Node::ekf_part2(std::function<Eigen::VectorXcd(Eigen::VectorXcd)> fstate,
+                         Eigen::MatrixXd Q)
+    {
+        x.resize(myneigh.size() * 5);
+        x.setZero(myneigh.size() * 5);
+        for (int i = 0; i < c.rows(); i++) {
+            x = x + eital[i] * c(i);
+        }
+        ekf_part3(fstate,Q);
+    }
+    
+    void Node::ekf_part3(std::function<Eigen::VectorXcd(Eigen::VectorXcd)> fstate,
+                         Eigen::MatrixXd Q)
+    {
+        dif_ekf_p3(fstate, Q);
+        state_ready = false;
+        x(3) = 0;
+        x(4) = 0;
+        reseteital();
+    }
+    
+    void Node::dif_ekf_p3(std::function<Eigen::VectorXcd(Eigen::VectorXcd)> fstate,
+                    Eigen::MatrixXd Q)
+    {
+        /*
+         [f, F_bar]= jaccsd(fstate,x);
+         u = f - F_bar*x;
+         x_next = F_bar*x + u;
+         P_next = F_bar*P*transpose(F_bar) + G*Q*transpose(G);
+         */
+        Eigen::MatrixXd F_bar;
+        Eigen::VectorXd f;
+        Eigen::VectorXd u;
+        
+        F_bar.resize(x.size(), x.size());
+        F_bar.setZero(x.size(), x.size());
+        f.resize(x.size());
+        f.setZero(x.size());
+        u.resize(x.size());
+        u.setZero(x.size());
+        
+        jaccsd2(fstate, x, f, F_bar);
+        u = f - F_bar*x;
+        x = F_bar*x + u;
+        P = F_bar*P*F_bar.transpose() + Q;
+    }
+    
+    void Node::jaccsd2(const std::function<Eigen::VectorXcd(Eigen::VectorXcd)> &fun,
+                      const Eigen::VectorXd &x,
+                      // returns z and A
+                      Eigen::VectorXd &z,
+                      Eigen::MatrixXd &A)
+    {
+        /*
+         z=fun(x);
+         n=numel(x);%Number of elements in an array or subscripted array expression.
+         m=numel(z);
+         A=zeros(m,n);
+         h=n*eps;
+         for k=1:n
+         x1=x;
+         x1(k)=x1(k)+h*i;
+         A(:,k)=imag(fun(x1))/h;
+         end
+         */
+        
+        Eigen::VectorXcd comp_z = fun(x);
+        for (int i = 0; i < comp_z.rows(); i++) {
+            z(i) = comp_z(i).real();
+        }
+        
+        long n = x.rows();
+        long m = z.rows();
+        A.resize(m, n);
+        A.setZero(m, n);
+        double h = n * MATLAB_EPS; // __DBL_EPSILON__
+        
+        for (int k = 0; k < n; k++) {
+            Eigen::VectorXcd x1(n);
+            x1.setZero(n);
+            x1 = x;
+            std::complex<double> xi(x1(k).real(),h);
+            x1(k) = xi;
+            Eigen::VectorXcd fun_x = fun(x1);
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    A(j, i) = fun_x(j).imag() / h;
+                }
+            }
+            //DLOG(A(0,k), " " , A(1,k), " ", A(2,k));
+        }
+    }
+    
+    void Node::reseteital()
+    {
+        eital.clear();
+        yl.clear();
+        Rl.clear();
+        Rx.clear();
+        ready_to_ekf_p1 = false;
+        ready_to_ekf_p2 = false;
+        hl.clear();
+        ekf_p1_done = false;
     }
 }

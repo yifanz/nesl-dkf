@@ -26,16 +26,36 @@ namespace dkf
         double vari_co;
         double vari_cb;
         Eigen::VectorXd eita;
+        std::vector<Eigen::VectorXd> eital;
+        bool ready_to_ekf_p2 = false;
+        std::vector<int> myneigh;
+        Eigen::VectorXd c;
+        bool state_ready = false;
+        double G = 1;
+        Eigen::Vector3d var_p{0,0,0};
+        double var_co = 10e-12;
+        double var_cb = 1.00;
         
         Node(int id, std::string name);
         
         void init_x_P(Eigen::VectorXd x, Eigen::MatrixXd P);
         void setAsReference();
         Eigen::Matrix<double, 5, 1> getInitialVar();
+        Eigen::Matrix<double, 5, 1> getProcessVar();
         
         void setSizeBuffer(int size_R)
         {
             this->size_R = size_R;
+        }
+        
+        void setmyneigh(std::vector<int> neighbors)
+        {
+            myneigh = neighbors;
+            c.resize(neighbors.size());
+            c.setZero(neighbors.size());
+            for (int i = 0; i < neighbors.size(); i++) {
+                c(i) = 1/neighbors.size();
+            }
         }
         
         void set_meas(dkf::Meas meas, std::function<Eigen::Vector3cd(Eigen::VectorXcd)> h);
@@ -48,6 +68,21 @@ namespace dkf
                     // returns z and A
                     Eigen::Vector3d &z,
                     Eigen::Matrix<double, 3, Eigen::Dynamic> &A);
+        void seteital(Eigen::VectorXd eita);
+        void checkekf_p2(std::function<Eigen::VectorXcd(Eigen::VectorXcd)> fstate,
+                         Eigen::MatrixXd Q);
+        void ekf_part2(std::function<Eigen::VectorXcd(Eigen::VectorXcd)> fstate,
+                       Eigen::MatrixXd Q);
+        void ekf_part3(std::function<Eigen::VectorXcd(Eigen::VectorXcd)> fstate,
+                       Eigen::MatrixXd Q);
+        void dif_ekf_p3(std::function<Eigen::VectorXcd(Eigen::VectorXcd)> fstate,
+                        Eigen::MatrixXd Q);
+        void jaccsd2(const std::function<Eigen::VectorXcd(Eigen::VectorXcd)> &fun,
+                     const Eigen::VectorXd &x,
+                     // returns z and A
+                     Eigen::VectorXd &z,
+                     Eigen::MatrixXd &A);
+        void reseteital();
     };
     
 }

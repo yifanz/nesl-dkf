@@ -43,12 +43,18 @@ namespace dkf
             double dt_ref = meas.getTime() - meas_last.getTime();
             meas_last = meas;
             
+            auto f = [=](Eigen::VectorXcd s) {
+                return this->processFcn(s, dt_ref);
+            };
+            
             auto h = [=](Eigen::VectorXcd s) {
                 return this->measurementFcn(s, meas);
             };
             
             publishmeas_forneigh(meas, h);
             checkekf_p1_forall();
+            publisheita_forneigh();
+            checkekf_p2_forall(f, dt_ref*Q);
         }
         
     }
@@ -68,6 +74,24 @@ namespace dkf
         
         for (int k = 0; k < nodes.size(); k++) {
             auto initialVar = nodes[k].getInitialVar();
+            diag(k*5) = initialVar(0);
+            diag(k*5+1) = initialVar(1);
+            diag(k*5+2) = initialVar(2);
+            diag(k*5+3) = initialVar(3);
+            diag(k*5+4) = initialVar(4);
+        }
+        
+        return diag.asDiagonal();
+    }
+    
+    Eigen::MatrixXd Network::getProcessVar()
+    {
+        Eigen::VectorXd diag;
+        diag.resize(nodes.size()*5, 1);
+        diag.setZero(nodes.size()*5);
+        
+        for (int k = 0; k < nodes.size(); k++) {
+            auto initialVar = nodes[k].getProcessVar();
             diag(k*5) = initialVar(0);
             diag(k*5+1) = initialVar(1);
             diag(k*5+2) = initialVar(2);
@@ -134,4 +158,36 @@ namespace dkf
         return y;
     }
     
+    void Network::publisheita_forneigh()
+    {
+        for (int i = 0; i < nodes.size(); i++) {
+            if (nodes[i].ready_to_ekf_p1) {
+                for (int j : neighbors[i]) {
+                    nodes[j].seteital(nodes[i].eita);
+                }
+            }
+        }
+    }
+    
+    void Network::checkekf_p2_forall(std::function<Eigen::VectorXcd(Eigen::VectorXcd)> fstate,
+                                     Eigen::MatrixXd Q)
+    {
+        for (int i = 0; i < nodes.size(); i++) {
+            nodes[i].checkekf_p2(fstate, Q);
+        }
+    }
+    
+    Eigen::VectorXcd Network::processFcn(Eigen::VectorXcd s, double dt)
+    {
+        Eigen::VectorXcd snew = s;
+        int stateSize = 5;
+        int i = 0;
+        
+        for (int k = 0; k < nodes.size(); k++) {
+            snew(i+3) = s(i+3) + s(i+4) * 1e-9 * dt;
+            i = i + stateSize;
+        }
+        
+        return snew;
+    }
 }

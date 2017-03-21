@@ -10,6 +10,8 @@ extern "C" void dkf_init()
     DLOG("dkf init");
     network.nodes[0].setAsReference();
     Eigen::MatrixXd P = network.getInitialVar();
+    Eigen::MatrixXd Q = network.getProcessVar();
+    network.Q = Q;
     Eigen::VectorXd x;
     x.resize(network.nodes.size()*5);
     x.setZero(network.nodes.size()*5);
