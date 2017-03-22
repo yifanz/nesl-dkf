@@ -18,7 +18,7 @@ namespace dkf
         bool first_meas = true;
         dkf::Meas meas_last;
         double t_start = 0;
-        double t_stop = 15;
+        double t_stop = 20;
         double disp_last = 0;
         
         Network();

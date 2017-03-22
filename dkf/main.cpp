@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     uint64_t t5;
     float discard;
     
-    int limit = 1000;
+    int limit = 1400;
     while(limit-- &&
           fscanf(csv_file,
                  "%lf, %d, %d, %" SCNu64 ", %" SCNu64 ", %" SCNu64 ", %" SCNu64 ", %" SCNu64 ", %" SCNu64 ", %" SCNu64 ", %f\n",
@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
                           t4,
                           t5
                           );
+              if (limit == 1390) _dkf_print_result();
           }
     _dkf_print_result();
     return 0;
