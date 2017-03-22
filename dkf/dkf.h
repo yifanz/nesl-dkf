@@ -21,6 +21,9 @@ extern "C" {
             uint64_t t4,
             uint64_t t5
             );
+    
+    // Debugging
+    void _dkf_print_result();
 
 #ifdef __cplusplus
 }

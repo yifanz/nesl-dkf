@@ -61,6 +61,6 @@ int main(int argc, char *argv[])
                           t5
                           );
           }
-    
+    _dkf_print_result();
     return 0;
 }

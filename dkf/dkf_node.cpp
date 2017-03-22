@@ -120,7 +120,8 @@ namespace dkf
             sum = sum + H_cap.conjugate().transpose()*(Rl[k].inverse())*(yl[k]-h);
         }
         eita = P_next * sum + x;
-//        DLOG(eita(0), " ", eita(1), " ", eita(2), " ", eita(3), " ", eita(4), " ", eita(5));
+        //DLOG(eita(0), " ", eita(1), " ", eita(2), " ", eita(3), " ", eita(4), " ", eita(5));
+//        DLOG(x);
 //        DLOG(eita);
     }
     
@@ -189,9 +190,17 @@ namespace dkf
     {
         x.resize(myneigh.size() * 5);
         x.setZero(myneigh.size() * 5);
-        for (int i = 0; i < c.rows(); i++) {
+        
+        //DLOG(eital[0]);
+        //DLOG(c(0));
+        x = eital[0] * c(0);
+        //DLOG(x);
+        
+        for (int i = 1; i < c.rows(); i++) {
             x = x + eital[i] * c(i);
         }
+        
+        //DLOG(x);
         ekf_part3(fstate,Q);
     }
     
@@ -226,9 +235,13 @@ namespace dkf
         u.setZero(x.size());
         
         jaccsd2(fstate, x, f, F_bar);
+//        DLOG(f);
+//        DLOG(F_bar);
         u = f - F_bar*x;
         x = F_bar*x + u;
         P = F_bar*P*F_bar.transpose() + Q;
+        
+//        DLOG(x);
     }
     
     void Node::jaccsd2(const std::function<Eigen::VectorXcd(Eigen::VectorXcd)> &fun,
@@ -254,6 +267,7 @@ namespace dkf
         for (int i = 0; i < comp_z.rows(); i++) {
             z(i) = comp_z(i).real();
         }
+        //DLOG(comp_z);
         
         long n = x.rows();
         long m = z.rows();
@@ -268,10 +282,8 @@ namespace dkf
             std::complex<double> xi(x1(k).real(),h);
             x1(k) = xi;
             Eigen::VectorXcd fun_x = fun(x1);
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    A(j, i) = fun_x(j).imag() / h;
-                }
+            for (int j = 0; j < m; j++) {
+                A(j, k) = fun_x(j).imag() / h;
             }
             //DLOG(A(0,k), " " , A(1,k), " ", A(2,k));
         }

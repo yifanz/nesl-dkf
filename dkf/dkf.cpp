@@ -63,3 +63,8 @@ extern "C" void dkf_iterate(
     
     network.next_meas(meas);
 }
+
+extern "C" void _dkf_print_result()
+{
+    DLOG(network.nodes[0].x);
+}

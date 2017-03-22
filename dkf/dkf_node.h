@@ -5,6 +5,7 @@
 #include <string>
 #include <Eigen/Dense>
 #include "dkf_meas.h"
+#include "dkf_log.h"
 
 namespace dkf
 {
@@ -54,8 +55,9 @@ namespace dkf
             c.resize(neighbors.size());
             c.setZero(neighbors.size());
             for (int i = 0; i < neighbors.size(); i++) {
-                c(i) = 1/neighbors.size();
+                c(i) = 1.0/(double)neighbors.size();
             }
+//            DLOG(c);
         }
         
         void set_meas(dkf::Meas meas, std::function<Eigen::Vector3cd(Eigen::VectorXcd)> h);

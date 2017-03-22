@@ -39,7 +39,14 @@ namespace dkf
         if (first_meas) {
             first_meas = false;
             meas_last = meas;
+            t_start = meas.getTime();
         } else {
+            double walltime = meas.getTime();
+            if (walltime - disp_last > 1.00) {
+                DLOG("Progress: ", 100*(walltime - t_start)/t_stop, "%");
+                disp_last = walltime;
+            }
+            
             double dt_ref = meas.getTime() - meas_last.getTime();
             meas_last = meas;
             
@@ -56,7 +63,8 @@ namespace dkf
             publisheita_forneigh();
             checkekf_p2_forall(f, dt_ref*Q);
         }
-        
+        //DLOG(nodes[0].x);
+        //DLOG(nodes[0].P(39,39));
     }
     
     void Network::init_x_P_forall(Eigen::VectorXd x, Eigen::MatrixXd P)
@@ -187,6 +195,8 @@ namespace dkf
             snew(i+3) = s(i+3) + s(i+4) * 1e-9 * dt;
             i = i + stateSize;
         }
+        
+        //DLOG(snew);
         
         return snew;
     }
